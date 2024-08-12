@@ -105,7 +105,7 @@ class TemplateMatcher:
 
 if __name__ == "__main__":
     # Setup signal handling for graceful shutdown
-    matcher = TemplateMatcher(template_path=os.path.join(os.path.dirname(__file__), 'template.png'))
+    matcher = TemplateMatcher(template_path=os.path.join(os.path.dirname(__file__), './assets/template.png'))
     signal.signal(signal.SIGINT, matcher.signal_handler)
     signal.signal(signal.SIGTERM, matcher.signal_handler)
     
