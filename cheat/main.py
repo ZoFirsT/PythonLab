@@ -19,7 +19,7 @@ class TemplateMatcher:
         self.threshold = 0.3
         self.capture_interval = 0.05
         self.match_interval = 0.05
-        self.screen_gray = None  # Initialize screen_gray
+        self.screen_gray = None
         self.capture_thread = threading.Thread(target=self.capture_screen_loop)
         self.match_thread = threading.Thread(target=self.match_template_loop)
         self.process_thread = threading.Thread(target=self.process_targets)
@@ -55,18 +55,14 @@ class TemplateMatcher:
                 if self.screen_gray is not None:
                     max_loc, max_val = self.find_template_location(self.screen_gray)
                     if max_val >= self.threshold:
-                        # Calculate target position
                         target_x, target_y = max_loc
                         target_x += self.template_gray.shape[1] // 2
                         target_y += self.template_gray.shape[0] // 2
 
-                        # Get screen size for bounds checking
                         screen_width, screen_height = pyautogui.size()
                         logging.info(f"Screen size: {screen_width} x {screen_height}")
 
-                        # Ensure the target position is within screen bounds
                         if 0 <= target_x <= screen_width and 0 <= target_y <= screen_height:
-                            # Add to target queue
                             with self.lock:
                                 self.target_queue.append((target_x, target_y))
             time.sleep(self.match_interval)
@@ -74,8 +70,8 @@ class TemplateMatcher:
     def move_and_click(self, target_x, target_y):
         """Move the mouse to the target position and click."""
         logging.info(f"Moving mouse to ({target_x}, {target_y})")
-        pyautogui.moveTo(target_x, target_y, duration=0.1)  # Smooth mouse movement
-        pyautogui.click()  # Click at the target position
+        pyautogui.moveTo(target_x, target_y, duration=0.1)
+        pyautogui.click()
         logging.info("Clicked to collect points")
 
     def process_targets(self):
@@ -83,9 +79,8 @@ class TemplateMatcher:
         while self.running:
             if self.target_queue:
                 with self.lock:
-                    target_x, target_y = self.target_queue.popleft()  # Get the first target in the queue
+                    target_x, target_y = self.target_queue.popleft()
                 self.move_and_click(target_x, target_y)
-                # Sleep to ensure there's a small delay between processing targets
                 time.sleep(0.2)
 
     def signal_handler(self, signal, frame):
@@ -104,7 +99,6 @@ class TemplateMatcher:
         self.process_thread.start()
 
 if __name__ == "__main__":
-    # Setup signal handling for graceful shutdown
     matcher = TemplateMatcher(template_path=os.path.join(os.path.dirname(__file__), './assets/template.png'))
     signal.signal(signal.SIGINT, matcher.signal_handler)
     signal.signal(signal.SIGTERM, matcher.signal_handler)
