@@ -2,7 +2,7 @@
 mkdir -p outs
 for filename in ./testcases/*.in; do
     echo "Running Case $(basename "$filename" .in) ..."
-    python main.py < "$filename" > "outs/$(basename "$filename" .in).out"
+    python3 main.py < "$filename" > "outs/$(basename "$filename" .in).out"
     file1="./testcases/$(basename "$filename" .in).out"
     file2="./outs/$(basename "$filename" .in).out"
 
