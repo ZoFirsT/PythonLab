@@ -1,10 +1,12 @@
 #!/bin/bash
 
+branch="main"
+
 git add .
 
 git commit -m "Automated commit by ZoFirsT Bot: $(date)"
 
-git push
+git push origin $branch
 
 if [ $? -ne 0 ]; then
   echo "Git operation failed!"
