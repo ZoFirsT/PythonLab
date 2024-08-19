@@ -1,4 +1,4 @@
-hours_worked = float(input())
+hours_worked = int(input())
 
 if hours_worked <= 40:
     compensation = hours_worked * 50
