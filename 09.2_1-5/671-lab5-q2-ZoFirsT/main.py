@@ -1,18 +1,20 @@
 def factorial(x):
-  if x == 0 or x == 1:
-    return 1
-  else:
+    if x == 0 or x == 1:
+        return "1"
+    
     result = 1
-    for i in range(2, x+1):
-      result *= i
-    return result
+    expression = ""
+    
+    for i in range(x, 0, -1):
+        result *= i
+        expression += str(i)
+        if i > 1:
+            expression += "*"
+    
+    expression += "=" + str(result)
+    
+    return expression
 
 x = int(input())
 
-result = factorial(x)
-output_string = f"{x}"
-for i in range(x-1, 0, -1):
-    output_string += f"*{i}"
-output_string += f"={result}"
-
-print(output_string)
+print(factorial(x))
