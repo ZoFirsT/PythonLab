@@ -1,18 +1,16 @@
-def remove_vowels():
-    vowels = ['a', 'e', 'i', 'o', 'u']
-    char_list = []
-    
-    while True:
-        char = input()
-        if char == '0':
-            break
-        char_list.append(char)
-    
-    for vowel in vowels:
-        while vowel in char_list:
-            char_list.remove(vowel)
-    
-    print(char_list)
+dele = ['a', 'e', 'i', 'o', 'u']
 
-remove_vowels()
+user_list = []
 
+while True:
+    item = input()
+    if item == '0':
+        break
+    user_list.append(item)
+
+    for d in dele:
+        while d in user_list:
+            user_list.remove(d)
+    
+
+print(user_list)
