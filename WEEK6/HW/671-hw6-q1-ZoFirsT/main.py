@@ -21,3 +21,4 @@ while True:
 primes = find_primes(n)
 print(*primes)
 print(f"Total prime numbers: {len(primes)}")
+
